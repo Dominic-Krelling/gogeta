@@ -1,85 +1,119 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+export default {
+ data(){
+  return {
+    valorConta: 0,
+    Gorgeta: 15,
+    numPessoas: 1,
+  };
+ },
+ methods: {
+  calcular(){
+    const valorConta = this.valorConta;
+    const Gorgeta = this.Gorgeta;
+    const numPessoas = this.numPessoas;
+    let valorGorgeta = 0;
+    let valorTotal= {};
+
+    valorGorgeta = valorConta * (Gorgeta / 100);
+    valorTotal = (valorConta + valorGorgeta) / numPessoas;
+
+    valorTotal = Math.round(valorTotal * 100) / 100;
+    valorTotal = valorTotal.toFixed(2);
+
+    console.log(valorTotal);
+
+    document.getElementById("resultado").innerHTML = valorTotal;
+
+  }
+ }
+};
+
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="main">
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+    <h1><i><strong>"Gorjota"</strong></i></h1>
 
-  <RouterView />
+    <form>
+
+      <label>
+        <p>Qual o preço do jantar?</p>
+        <input type="number" v-model="valorConta" id="valorConta">
+      </label>
+
+      <label>
+        <p>Qual a gorjeta?</p>
+        <select v-model="Gorgeta" id="valorGorgeta">
+          <option value="30">30% Ótimo serviço</option>
+          <option value="25">25% Muito bom</option>
+          <option value="20">20% Bom</option>
+          <option value="15">15% Aceitável</option>
+          <option value="10">10% Ruim</option>
+          <option value="5">5% "Meh"</option>
+        </select>
+      </label>
+
+      <label>
+        <p>Quantas pessoas vão dividir a conta?</p>
+        <input v-model="numPessoas" type="number" id="numPessoas">
+      </label>
+
+      <label>
+        <p>Calcular:</p>
+        <button type="button" @click="calcular">R$:<span id="resultado">0.00</span></button>
+      </label>
+
+    </form>
+
+  </div>
+
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+  .main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: rgba(7, 39, 32, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(41, 24, 11, 0.17) 0px -2px 6px 0px inset;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  h1 {
+    font-size: 50px;
   }
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  input, select {
+    margin-bottom: 30px;
   }
 
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  input, select, button {
+    width: 250px;
+    height: 25px;
+    font-size: 18px;
+    border: 1px black solid;
+    border-radius: 2px;
+    text-align: center;
+    transition: 0.25s;
+    cursor: pointer;
   }
-}
+
+  button {
+    background-color: #000dfa;
+    height: 50px;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  button:hover {
+    background-color: #000dfa;
+  }
+
 </style>
